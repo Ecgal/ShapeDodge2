@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+Target 'testSFML' in project 'testSFML'
+➜ Explicit dependency on target 'ZERO_CHECK' in project 'testSFML'
+Target 'ZERO_CHECK' in project 'testSFML' (no dependencies)
