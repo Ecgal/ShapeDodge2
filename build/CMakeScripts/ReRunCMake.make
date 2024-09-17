@@ -5,10 +5,10 @@ empty:=
 space:= $(empty) $(empty)
 spaceplus:= $(empty)\ $(empty)
 
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/alexiapappas/MSD/ShapeDodge2/CMakeLists.txt))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/alexiapappas/MSD/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeCCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/alexiapappas/MSD/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeCXXCompiler.cmake))
-TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/alexiapappas/MSD/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeSystem.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/evangallagher/ShapeDodge2/CMakeLists.txt))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/evangallagher/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeCCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/evangallagher/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeCXXCompiler.cmake))
+TARGETS += $(subst $(space),$(spaceplus),$(wildcard /Users/evangallagher/ShapeDodge2/build/CMakeFiles/3.30.3/CMakeSystem.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/Cellar/cmake/3.30.3/share/cmake/Modules/CMakeCCompiler.cmake.in))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/Cellar/cmake/3.30.3/share/cmake/Modules/CMakeCCompilerABI.c))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/Cellar/cmake/3.30.3/share/cmake/Modules/CMakeCInformation.cmake))
@@ -113,5 +113,5 @@ TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/lib/cmake/SFML
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/lib/cmake/SFML/SFMLSharedTargets-release.cmake))
 TARGETS += $(subst $(space),$(spaceplus),$(wildcard /opt/homebrew/lib/cmake/SFML/SFMLSharedTargets.cmake))
 
-/Users/alexiapappas/MSD/ShapeDodge2/build/CMakeFiles/cmake.check_cache: $(TARGETS)
-	/opt/homebrew/Cellar/cmake/3.30.3/bin/cmake -S/Users/alexiapappas/MSD/ShapeDodge2 -B/Users/alexiapappas/MSD/ShapeDodge2/build
+/Users/evangallagher/ShapeDodge2/build/CMakeFiles/cmake.check_cache: $(TARGETS)
+	/opt/homebrew/Cellar/cmake/3.30.3/bin/cmake -S/Users/evangallagher/ShapeDodge2 -B/Users/evangallagher/ShapeDodge2/build

@@ -90,7 +90,7 @@
 				
 				
 				
-				
+				MACOSX_DEPLOYMENT_TARGET = "14.3";
 				SDKROOT = "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk";
 			};
 			name = Debug;
