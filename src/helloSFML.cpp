@@ -27,40 +27,40 @@ public:
         window.draw(playerShape);
     }
 };
-
-class Shapes{
+//points
+class Points{
 public:
-    sf::RectangleShape squareShape;
-    sf::Vector2<float> squarePosition;
-    sf::Vector2<float> squareDestination;
+    sf::RectangleShape pointsShape;
+    sf::Vector2<float> pointsPosition;
+    sf::Vector2<float> pointsDestination;
     sf::Vector2<float> intermediatePosition;
     float speed;
     bool moving;
     bool collision;
-    int collisionDestationX;
-    int collisionDestationY;
+    float collisionDestationX;
+    float collisionDestationY;
     
 public:
-    Shapes(int x, int y){
-        squarePosition = sf::Vector2f(x, y);
+    Points(int x, int y){
+        pointsPosition = sf::Vector2f(x, y);
         speed = .0002f;
-        squareShape.setPosition (squarePosition);
-        squareShape.setSize(sf::Vector2<float>(10,10));
-        squareShape.setFillColor(sf::Color::Yellow);
+        pointsShape.setPosition (pointsPosition);
+        pointsShape.setSize(sf::Vector2<float>(10,10));
+        pointsShape.setFillColor(sf::Color::Yellow);
         collisionDestationX=1100;
         collisionDestationY =500;
     }
     
     void moveOutOfTheScreen () {
         if (!moving){
-            squareDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
+            pointsDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
             moving = true;
         }
-        if (!reachedDestination(squareDestination.x, squareDestination.y)){
-            intermediatePosition.x = squarePosition.x + (squareDestination.x - squarePosition.x) * speed;
-            intermediatePosition.y = squarePosition.y + (squareDestination.y - squarePosition.y) * speed;
-            squareShape.setPosition(intermediatePosition);
-            squarePosition = intermediatePosition;
+        if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
+            intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
+            intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
+            pointsShape.setPosition(intermediatePosition);
+            pointsPosition = intermediatePosition;
         } else {
             moving = false;
         }
@@ -69,96 +69,99 @@ public:
     void move(int x, int y){
         if(!collision){
             if (!moving){
-                squareDestination = sf::Vector2f(x, y);
+                pointsDestination = sf::Vector2f(x, y);
                 moving = true;
             }
-            if (!reachedDestination(squareDestination.x, squareDestination.y)){
-                intermediatePosition.x = squarePosition.x + (squareDestination.x - squarePosition.x) * speed;
-                intermediatePosition.y = squarePosition.y + (squareDestination.y - squarePosition.y) * speed;
-                squareShape.setPosition(intermediatePosition);
-                squarePosition = intermediatePosition;
+            if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
+                intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
+                intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
+                pointsShape.setPosition(intermediatePosition);
+                pointsPosition = intermediatePosition;
             } else {
                 moving = false;
             }
         } else {
+//            moveOutOfTheScreen();
+        }
+    }
+    
+    bool reachedDestination(float x, float y){
+        return (abs(pointsPosition.x - x) < 100 && abs(pointsPosition.y - y) < 100);
+    }
+    
+    void draw ( sf::RenderWindow &window ){
+        window.draw(pointsShape);
+    }
+};
+//enemy
+class Enemy{
+public:
+    sf::CircleShape enemyShape;
+    sf::Vector2<float> enemyPosition;
+    sf::Vector2<float> enemyDestination;
+    sf::Vector2<float> intermediatePosition;
+    
+    
+    float speed;
+    bool moving;
+    bool collision;
+    int collisionDestationX;
+    int collisionDestationY;
+    
+public:
+    Enemy(int x, int y){
+        enemyPosition = sf::Vector2f(x, y);
+        speed = .0002f;
+        enemyShape.setPosition (enemyPosition);
+        enemyShape.setRadius(40);
+        enemyShape.setPointCount(3);
+        enemyShape.setFillColor(sf::Color::Red);
+        collisionDestationX = 500;
+        collisionDestationY = 500;
+    }
+    
+    
+    
+    void moveOutOfTheScreen () {
+        if (!moving){
+            enemyDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
+            moving = true;
+        }
+        if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
+            intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
+            intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
+            enemyShape.setPosition(intermediatePosition);
+            enemyPosition = intermediatePosition;
+        } else {
+            moving = false;
+        }
+    }
+    
+    void move(int x, int y){
+        if(!collision){
+            if (!moving){
+                enemyDestination = sf::Vector2f(x, y);
+                moving = true;
+            }
+            if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
+                intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
+                intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
+                enemyShape.setPosition(intermediatePosition);
+                enemyPosition = intermediatePosition;
+            } else {
+                moving = false;
+            }
+        }else{
             moveOutOfTheScreen();
         }
     }
     
     bool reachedDestination(float x, float y){
-        return (abs(squarePosition.x - x) < 100 && abs(squarePosition.y - y) < 100);
+        return (abs(enemyPosition.x - x) < 100 && abs(enemyPosition.y - y) < 100);
     }
     
     void draw ( sf::RenderWindow &window ){
-        window.draw(squareShape);
-    }
-};
-
-class Triangle{
-public:
-    sf::CircleShape triangleShape;
-    sf::Vector2<float> squarePosition;
-    sf::Vector2<float> squareDestination;
-    sf::Vector2<float> intermediatePosition;
-    float speed;
-    bool moving;
-    bool collision;
-    int collisionDestationX;
-    int collisionDestationY;
-    
-public:
-    Triangle(int x, int y){
-        squarePosition = sf::Vector2f(x, y);
-        speed = .0002f;
-        triangleShape.setPosition (squarePosition);
-        triangleShape.setRadius(40);
-        triangleShape.setPointCount(3);
-        triangleShape.setFillColor(sf::Color::Red);
-        collisionDestationX=1100;
-        collisionDestationY =500;
-    }
-    
-    void moveOutOfTheScreen () {
-        if (!moving){
-            squareDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
-            moving = true;
-        }
-        if (!reachedDestination(squareDestination.x, squareDestination.y)){
-            intermediatePosition.x = squarePosition.x + (squareDestination.x - squarePosition.x) * speed;
-            intermediatePosition.y = squarePosition.y + (squareDestination.y - squarePosition.y) * speed;
-            triangleShape.setPosition(intermediatePosition);
-            squarePosition = intermediatePosition;
-        } else {
-            moving = false;
-        }
-    }
-    
-    void move(int x, int y){
-        if(!collision){
-            if (!moving){
-                squareDestination = sf::Vector2f(x, y);
-                moving = true;
-            }
-            if (!reachedDestination(squareDestination.x, squareDestination.y)){
-                intermediatePosition.x = squarePosition.x + (squareDestination.x - squarePosition.x) * speed;
-                intermediatePosition.y = squarePosition.y + (squareDestination.y - squarePosition.y) * speed;
-                triangleShape.setPosition(intermediatePosition);
-                squarePosition = intermediatePosition;
-            } else {
-                moving = false;
-            }
-        }
-    }
-    
-    bool reachedDestination(float x, float y){
-        return (abs(squarePosition.x - x) < 100 && abs(squarePosition.y - y) < 100);
-    }
-    
-    //implement lerp while loop function (takes a position and give it a target location
-    // give it a speed & within a given time, split the
-    
-    void draw ( sf::RenderWindow &window ){
-        window.draw(triangleShape);
+        window.draw(enemyShape);
     }
 };
 
@@ -179,15 +182,25 @@ int main(int argc, const char * argv[]) {
     
     Player player1;
     
-    Shapes shape1(2, 6);
-    Shapes shape2(45, 79);
-    Shapes shape3(900, 981);
-    Shapes shape4(750, 699);
+    Points shape1(2, 6);
+    Points shape2(45, 79);
+    Points shape3(900, 981);
+    Points shape4(750, 699);
     
-    Triangle triangle1 (60,90);
-    Triangle triangle2 (600,900);
-    Triangle triangle3 (50,900);
-    Triangle triangle4 (6,9);
+    std::vector<Enemy> enemyCreator;
+    
+    for (int i = 0; i < 10; i++){
+        int randomXCoordinate = rand() % 1000;
+        int randomYCoordinate = rand() % 1000;
+        Enemy enemy (randomXCoordinate, randomYCoordinate);
+        enemyCreator.push_back(enemy);
+        std::cout << "You created a new triangle!" << std::endl;
+    }
+    
+//    Triangle triangle1 (60,90);
+//    Triangle triangle2 (600,900);
+//    Triangle triangle3 (50,900);
+//    Triangle triangle4 (6,9);
     
     while (window.isOpen()){
         float playerSpeed = 200.0f;
@@ -223,39 +236,52 @@ int main(int argc, const char * argv[]) {
                 player1.playerShape.setPosition(windowWidth - player1.playerShape.getGlobalBounds().width, player1.playerShape.getPosition().y);
         }
         
-        shape1.move(rand() % 1000, rand() % 1000);
-        shape2.move(rand() % 1000, rand() % 1000);
-        shape3.move(rand() % 1000, rand() % 1000);
-        shape4.move(rand() % 1000, rand() % 1000);
-        
-        triangle1.move(rand() % 1000, rand() % 1000);
-        triangle2.move(rand() % 1000, rand() % 1000);
-        triangle3.move(rand() % 1000, rand() % 1000);
-        triangle4.move(rand() % 1000, rand() % 1000);
-        
-        if (shape1.squareShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-            shape1.squareShape.move(rand() % 1000, rand() % 1000);
-            shape1.collision =true;
+        for (Enemy& t: enemyCreator){
+            t.move(rand() % 1000, rand() % 1000);
+            std::cout<<"inside move"<< std::endl;     //pass by refrence
         }
-        
-        if (triangle1.triangleShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-            triangle1.triangleShape.move(rand() % 1000, rand() % 1000);
-            triangle1.collision =true;
-        }
+//        
+//        shape1.move(rand() % 1000, rand() % 1000);
+//        shape2.move(rand() % 1000, rand() % 1000);
+//        shape3.move(rand() % 1000, rand() % 1000);
+//        shape4.move(rand() % 1000, rand() % 1000);
+//        
+//        triangleCreator[0].move(rand() % 1000, rand() % 1000);
+//        triangle2.move(rand() % 1000, rand() % 1000);
+//        triangle3.move(rand() % 1000, rand() % 1000);
+//        triangle4.move(rand() % 1000, rand() % 1000);
+//        
+//        if (shape1.squareShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
+//            shape1.squareShape.move(rand() % 1000, rand() % 1000);
+//            shape1.collision =true;
+//        }
+//        
+//        if (triangle1.triangleShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
+//            triangle1.triangleShape.move(rand() % 1000, rand() % 1000);
+//            triangle1.collision =true;
+//        }
+//        if (triangle2.triangleShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
+//            triangle2.triangleShape.move(rand() % 1000, rand() % 1000);
+//            triangle2.collision =true;
+//        }
         
         window.clear();//clear canvas
         
         player1.draw(window);
         
-        shape1.draw(window);
-        shape2.draw(window);
-        shape3.draw(window);
-        shape4.draw(window); //put into a vector and iterate through
+//        shape1.draw(window);
+//        shape2.draw(window);
+//        shape3.draw(window);
+//        shape4.draw(window); //put into a vector and iterate through
         
-        triangle1.draw(window);
-        triangle2.draw(window);
-        triangle3.draw(window);
-        triangle4.draw(window);
+        for (Enemy t: enemyCreator){
+            t.draw(window);
+//            t.move(rand() % 1000, rand() % 1000);
+        }
+//        triangle1.draw(window);
+//        triangle2.draw(window);
+//        triangle3.draw(window);
+//        triangle4.draw(window);
         window.display();//diplay canvas
         ///processEvent ()
         ///Update()
