@@ -1,3 +1,0 @@
-/Users/evangallagher/ShapeDodge2/build/CMakeFiles/testSFML.dir
-/Users/evangallagher/ShapeDodge2/build/CMakeFiles/ALL_BUILD.dir
-/Users/evangallagher/ShapeDodge2/build/CMakeFiles/ZERO_CHECK.dir
