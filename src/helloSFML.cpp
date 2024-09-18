@@ -153,15 +153,19 @@ public:
     bool reachedDestination(float x, float y){
         return (abs(squarePosition.x - x) < 100 && abs(squarePosition.y - y) < 100);
     }
+    
     //implement lerp while loop function (takes a position and give it a target location
     // give it a speed & within a given time, split the
+    
     void draw ( sf::RenderWindow &window ){
         window.draw(triangleShape);
     }
 };
+
 //sf::Clock clock;
 //sf::Time deltaTime = clock.restart();
 //float dt = deltaTime.asSeconds();
+
 int main(int argc, const char * argv[]) {
     sf::Clock clock;
     sf::Time deltaTime = clock.restart();
@@ -173,7 +177,7 @@ int main(int argc, const char * argv[]) {
     float windowWidth = 1000;
     sf::RenderWindow window (sf::VideoMode(windowHeight, windowWidth),"my first SFML game");
     
-    Player player1
+    Player player1;
     
     Shapes shape1(2, 6);
     Shapes shape2(45, 79);
@@ -194,26 +198,26 @@ int main(int argc, const char * argv[]) {
             }
         }
             //Up Arrow
-        if (event.key.code == sf::keyboard::Up ){
+        if (event.key.code == sf::Keyboard::Up ){
             std::cout<<"up key"<<std::endl;
             player1.playerShape.move(0.f ,-0.1);
             if(player1.playerShape.getPosition().y < 0.f)
                 player1.playerShape.setPosition(player1.playerShape.getPosition().x, 0.f);
             
             //Down Arrow
-        }else if (event.key.code == sf::keyboard::Down ){
+        }else if (event.key.code == sf::Keyboard::Down ){
             player1.playerShape.move(0.f ,0.1);
             if(player1.playerShape.getPosition().y + (player1.playerShape.getGlobalBounds().height * 2) > windowHeight)
                 player1.playerShape.setPosition(player1.playerShape.getPosition().x, windowHeight - (player1.playerShape.getGlobalBounds().height * 2));
             
             //Left Arrow
-        }else if (event.key.code == sf::keyboard::Left ){
+        }else if (event.key.code == sf::Keyboard::Left ){
             player1.playerShape.move(-0.1, 0.f);
             if(player1.playerShape.getPosition().x < 0.f)
                 player1.playerShape.setPosition(0.f, player1.playerShape.getPosition().y);
             
             //Right Arrow
-        }else if (event.key.code == sf::keyboard::Right){
+        }else if (event.key.code == sf::Keyboard::Right){
             player1.playerShape.move( 0.1, 0.0f);
             if(player1.playerShape.getPosition().x + player1.playerShape.getGlobalBounds().width > windowWidth)
                 player1.playerShape.setPosition(windowWidth - player1.playerShape.getGlobalBounds().width, player1.playerShape.getPosition().y);
@@ -230,14 +234,12 @@ int main(int argc, const char * argv[]) {
         triangle4.move(rand() % 1000, rand() % 1000);
         
         if (shape1.squareShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-            //      shape1.intermediatePosition (rand() % 1000, rand() % 1000);
-            shape1.squareShape.move(rand() % 1000, rand() % 1000); /*- (int)shape1.squareShape.getGlobalBounds().width), 0)*/
+            shape1.squareShape.move(rand() % 1000, rand() % 1000);
             shape1.collision =true;
         }
         
         if (triangle1.triangleShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-            //      shape1.intermediatePosition (rand() % 1000, rand() % 1000);
-            triangle1.triangleShape.move(rand() % 1000, rand() % 1000); /*- (int)shape1.squareShape.getGlobalBounds().width), 0)*/
+            triangle1.triangleShape.move(rand() % 1000, rand() % 1000);
             triangle1.collision =true;
         }
         
