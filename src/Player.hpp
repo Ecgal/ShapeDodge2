@@ -22,9 +22,11 @@ private:
     int _gameBoardHeight, _gameBoardWidth, lives;
     
 public:
+    
     sf::RectangleShape playerShape;
     sf::Vector2<float> playerPosition;
     int score;
+    Player(){}
     Player(int gameBoardHeight, int gameBoardWidth){
         score = 0;
         lives = 5;
@@ -109,7 +111,11 @@ public:
         }
     }
   
-    
+    void setWindowDimessions( int width, int height){
+        
+        _gameBoardHeight= height;
+        _gameBoardWidth= width;
+    }
 };
 
 #endif /* Player_hpp */

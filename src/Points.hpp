@@ -19,7 +19,7 @@
 #include <cstdlib>
 #include "Player.hpp"
 #include "Points.hpp"
-#include "createGame.hpp"
+#include "CreateGame.hpp"
 
 //points
 class Points{
