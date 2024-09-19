@@ -17,7 +17,7 @@
 #include <string>
 #include "Player.hpp"
 #include "Points.hpp"
-#include "createGame.hpp"
+#include "createGame.cpp"
 
 
 class Enemy{
