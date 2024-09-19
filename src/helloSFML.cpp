@@ -54,7 +54,7 @@ int main(int argc, const char * argv[]) {
         
         enemy.moveDirection(enemies);
         enemy.collisionAction(enemies,  game.getPlayer());
-        
+       
         points.moveDirection(point);
         points.collisionAction(point,  game.getPlayer());
         

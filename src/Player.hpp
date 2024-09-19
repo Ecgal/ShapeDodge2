@@ -17,12 +17,12 @@
 
 class Player{
 private:
-    std::vector<sf::RectangleShape> playerLives;
+    
     float speed;
     int _gameBoardHeight, _gameBoardWidth;
     
 public:
-    
+    std::vector<sf::RectangleShape> playerLives;
     sf::RectangleShape playerShape;
     sf::Vector2<float> playerPosition;
     int score;
@@ -47,15 +47,37 @@ public:
             lifeShape.setFillColor(sf::Color::Magenta);
             lifeShape.setPosition(playerPosition.x + 50, playerPosition.y + i * 10);
             playerLives.push_back(lifeShape);
+            
+            
         }
     }
     
     void draw(sf::RenderWindow &window){
         window.draw(playerShape);
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < playerLives.size(); i++){
             window.draw(playerLives[i]);
+
         }
+       
     }
+    
+
+    void reduceLife (){
+        if(lives == 4){
+            playerLives.pop_back();
+        } if(lives == 3){
+            playerLives.pop_back();
+        } if(lives == 2){
+            playerLives.pop_back();
+        } if(lives == 1){
+            playerLives.pop_back();
+        }
+        
+        
+    }
+    
+    
+    
     
     void move (sf::Event event){
         //Up Arrow Movement

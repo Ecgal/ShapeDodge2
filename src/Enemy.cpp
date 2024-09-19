@@ -74,14 +74,11 @@ void Enemy::eraseEnemy(std::vector<Enemy>& enemyVec, int enemyToErase){
     }
 }
 
-
-
-
 void Enemy::collisionAction (std::vector<Enemy>& enemyVec,  Player& player1){
     for (int i = 0; i < enemyVec.size(); ++i) {
         if(enemyVec[i].enemyShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
             player1.lives = player1.lives - 1;
-            
+            player1.reduceLife();
             if(player1.lives > 0){
                 
                 enemyVec[i].eraseEnemy(enemyVec, i);

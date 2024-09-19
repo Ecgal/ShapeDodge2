@@ -63,7 +63,6 @@ public:
     
     void drawEnemy (std::vector<Enemy>& enemyVec,  sf::RenderWindow &window );
    
-    
     void draw ( sf::RenderWindow &window );
     
 };
