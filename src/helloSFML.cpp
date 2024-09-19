@@ -120,8 +120,6 @@ public:
         collisionDestationY = 500;
     }
     
-    
-    
     void moveOutOfTheScreen () {
         if (!moving){
             enemyDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
@@ -158,6 +156,10 @@ public:
     
     bool reachedDestination(float x, float y){
         return (abs(enemyPosition.x - x) < 100 && abs(enemyPosition.y - y) < 100);
+    }
+    
+    void reset(){
+        
     }
     
     void draw ( sf::RenderWindow &window ){
@@ -238,9 +240,16 @@ int main(int argc, const char * argv[]) {
         
         for (Enemy& t: enemyCreator){
             t.move(rand() % 1000, rand() % 1000);
-            std::cout<<"inside move"<< std::endl;     //pass by refrence
         }
-//        
+        
+        for (Enemy& t : enemyCreator){
+            if (t.enemyShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
+                t.enemyShape.setPosition(0, 0);
+                t.move(rand() % 1000, rand() % 1000);
+                std::cout<<"inside move"<< std::endl;
+            }
+        }
+//
 //        shape1.move(rand() % 1000, rand() % 1000);
 //        shape2.move(rand() % 1000, rand() % 1000);
 //        shape3.move(rand() % 1000, rand() % 1000);
