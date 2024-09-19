@@ -57,7 +57,9 @@ public:
     
     void moveDirection(std::vector<Enemy>& enemyVec);
     
-    void collisionAction (std::vector<Enemy>& enemyVec, const Player& player1);
+    void eraseEnemy(std::vector<Enemy>& enemyVec, int enemyToErase);
+    
+    void collisionAction (std::vector<Enemy>& enemyVec, Player& player1);
     
     void drawEnemy (std::vector<Enemy>& enemyVec,  sf::RenderWindow &window );
    

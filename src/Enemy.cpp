@@ -65,24 +65,51 @@ void Enemy::moveDirection(std::vector<Enemy>& enemyVec) {
     }
 }
 
-void Enemy::collisionAction (std::vector<Enemy>& enemyVec, const Player& player1){
-    for (Enemy& t : enemyVec){
-        if(t.enemyShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-            t.enemyShape.setPosition(0, 0);
-            t.move(rand() % 1000, rand() % 1000);
+
+void Enemy::eraseEnemy(std::vector<Enemy>& enemyVec, int enemyToErase){
+    if( enemyToErase >= 0 && enemyToErase <enemyVec.size()){
+        enemyVec.erase(enemyVec.begin() + enemyToErase);
+        
+        
+    }
+}
+
+
+
+
+void Enemy::collisionAction (std::vector<Enemy>& enemyVec,  Player& player1){
+    for (int i = 0; i < enemyVec.size(); ++i) {
+        if(enemyVec[i].enemyShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
+            player1.lives = player1.lives - 1;
+            
+            if(player1.lives > 0){
+                
+                enemyVec[i].eraseEnemy(enemyVec, i);
+                
+                int randomXCoordinate = rand() % 1000;
+                int randomYCoordinate = rand() % 1000;
+                
+                Enemy newEnemy (randomXCoordinate, randomYCoordinate);
+                enemyVec.push_back(newEnemy);
+                std::cout<<"Player Lives: "<<player1.lives<<std::endl;
+            }else{
+                std::cout<<"GAME OVER"<<std::endl;
+            }
+                
+            }
         }
     }
-}
-
-
-void Enemy::drawEnemy (std::vector<Enemy>& enemyVec,  sf::RenderWindow &window ){
-    for (Enemy t: enemyVec){
-        t.draw(window);
-        //            t.move(rand() % 1000, rand() % 1000);
+    
+    
+    void Enemy::drawEnemy (std::vector<Enemy>& enemyVec,  sf::RenderWindow &window ){
+        for (Enemy t: enemyVec){
+            t.draw(window);
+            //            t.move(rand() % 1000, rand() % 1000);
+        }
     }
-}
+    
+    
+    void Enemy::draw ( sf::RenderWindow &window ){
+        window.draw(enemyShape);
+    }
 
-
-void Enemy::draw ( sf::RenderWindow &window ){
-    window.draw(enemyShape);
-}

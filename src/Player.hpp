@@ -19,12 +19,13 @@ class Player{
 private:
     std::vector<sf::RectangleShape> playerLives;
     float speed;
-    int _gameBoardHeight, _gameBoardWidth, lives;
+    int _gameBoardHeight, _gameBoardWidth;
     
 public:
     sf::RectangleShape playerShape;
     sf::Vector2<float> playerPosition;
     int score;
+    int lives;
     Player(int gameBoardHeight, int gameBoardWidth){
         score = 0;
         lives = 5;
