@@ -1,10 +1,3 @@
-
-
-
-
-
-
-
 //Created by Evan and Alexia
 
 #include <iostream>
@@ -18,7 +11,6 @@
 #include "Points.hpp"
 #include "createGame.hpp"
 
-//#include
 
 //class Player{
 //public:
@@ -195,7 +187,7 @@ int main(int argc, const char * argv[]) {
     float windowWidth = 1000;
     sf::RenderWindow window (sf::VideoMode(windowHeight, windowWidth),"my first SFML game");
     
-    Player player1;
+    Player player1(windowHeight, windowWidth);
     
     Points shape1(2, 6);
     Points shape2(45, 79);
@@ -234,33 +226,8 @@ int main(int argc, const char * argv[]) {
                 window.close();
             }
         }
-            //Up Arrow
-        if (event.key.code == sf::Keyboard::Up ){
-            player1.playerShape.move(0.f ,-0.1);
-            if(player1.playerShape.getPosition().y < 0.f)
-                player1.playerShape.setPosition(player1.playerShape.getPosition().x, 0.f);
-            
-            //Down Arrow
-        }else if (event.key.code == sf::Keyboard::Down ){
-            player1.playerShape.move(0.f ,0.1);
-            if(player1.playerShape.getPosition().y + (player1.playerShape.getGlobalBounds().height * 2) > windowHeight)
-                player1.playerShape.setPosition(player1.playerShape.getPosition().x, windowHeight - (player1.playerShape.getGlobalBounds().height * 2));
-            
-            //Left Arrow
-        }else if (event.key.code == sf::Keyboard::Left ){
-            player1.playerShape.move(-0.1, 0.f);
-            if(player1.playerShape.getPosition().x < 0.f)
-                player1.playerShape.setPosition(0.f, player1.playerShape.getPosition().y);
-            
-            //Right Arrow
-        }else if (event.key.code == sf::Keyboard::Right){
-            player1.playerShape.move( 0.1, 0.0f);
-            if(player1.playerShape.getPosition().x + player1.playerShape.getGlobalBounds().width > windowWidth)
-                player1.playerShape.setPosition(windowWidth - player1.playerShape.getGlobalBounds().width, player1.playerShape.getPosition().y);
-        }
         
-        
-        
+        player1.move(event);
         
         enemy.moveDirection(enemies);
         enemy.collisionAction(enemies, player1);
