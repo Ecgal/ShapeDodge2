@@ -15,6 +15,10 @@
 #include <SFML/System.hpp>
 #include <memory>
 #include <string>
+#include "Player.hpp"
+#include "Points.hpp"
+#include "createGame.hpp"
+
 
 class Enemy{
 public:
@@ -33,6 +37,7 @@ public:
 public:
     Enemy(int x, int y){
         enemyPosition = sf::Vector2f(x, y);
+        enemyDestination = sf::Vector2f(x, y);
         speed = .0002f;
         enemyShape.setPosition (enemyPosition);
         enemyShape.setRadius(40);
@@ -42,49 +47,23 @@ public:
         collisionDestationY = 500;
     }
     
+    void moveOutOfTheScreen ();
     
+    void move(int x, int y);
     
-    void moveOutOfTheScreen () {
-        if (!moving){
-            enemyDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
-            moving = true;
-        }
-        if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
-            intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
-            intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
-            enemyShape.setPosition(intermediatePosition);
-            enemyPosition = intermediatePosition;
-        } else {
-            moving = false;
-        }
-    }
+    bool reachedDestination(float x, float y);
     
-    void move(int x, int y){
-        if(!collision){
-            if (!moving){
-                enemyDestination = sf::Vector2f(x, y);
-                moving = true;
-            }
-            if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
-                intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
-                intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
-                enemyShape.setPosition(intermediatePosition);
-                enemyPosition = intermediatePosition;
-            } else {
-                moving = false;
-            }
-        }else{
-            moveOutOfTheScreen();
-        }
-    }
+    void enemyCreator( std::vector<Enemy>& enemyVec);
     
-    bool reachedDestination(float x, float y){
-        return (abs(enemyPosition.x - x) < 100 && abs(enemyPosition.y - y) < 100);
-    }
+    void moveDirection(std::vector<Enemy>& enemyVec);
     
-    void draw ( sf::RenderWindow &window ){
-        window.draw(enemyShape);
-    }
+    void collisionAction (std::vector<Enemy>& enemyVec, const Player& player1);
+    
+    void drawEnemy (std::vector<Enemy>& enemyVec,  sf::RenderWindow &window );
+   
+    
+    void draw ( sf::RenderWindow &window );
+    
 };
 
 
@@ -111,3 +90,24 @@ public:
 
 
 #endif /* Enemy_hpp */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -15,6 +15,11 @@
 #include <SFML/System.hpp>
 #include <memory>
 #include <string>
+#include <ctime>
+#include <cstdlib>
+#include "Player.hpp"
+#include "Points.hpp"
+#include "createGame.hpp"
 
 //points
 class Points{
@@ -40,49 +45,25 @@ public:
         collisionDestationY =500;
     }
     
-    void moveOutOfTheScreen () {
-        if (!moving){
-            pointsDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
-            moving = true;
-        }
-        if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
-            intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
-            intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
-            pointsShape.setPosition(intermediatePosition);
-            pointsPosition = intermediatePosition;
-        } else {
-            moving = false;
-        }
-    }
+    void moveOutOfTheScreen ();
     
-    void move(int x, int y){
-        if(!collision){
-            if (!moving){
-                pointsDestination = sf::Vector2f(x, y);
-                moving = true;
-            }
-            if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
-                intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
-                intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
-                pointsShape.setPosition(intermediatePosition);
-                pointsPosition = intermediatePosition;
-            } else {
-                moving = false;
-            }
-        } else {
-//            moveOutOfTheScreen();
-        }
-    }
+    void move(int x, int y);
     
-    bool reachedDestination(float x, float y){
-        return (abs(pointsPosition.x - x) < 100 && abs(pointsPosition.y - y) < 100);
-    }
+    bool reachedDestination(float x, float y);
     
-    void draw ( sf::RenderWindow &window ){
-        window.draw(pointsShape);
-    }
-};
+    void pointsCreator( std::vector<Points>& pointsVec);
+    
+    void moveDirection(std::vector<Points>& pointsVec);
+    
+    void erasePoint(std::vector<Points>& pointsVec, int pointToErase);
+    
+    void collisionAction (std::vector<Points>& pointsVec,  Player& player1);
+    
+    void drawPoints (std::vector<Points>& pointsVec,  sf::RenderWindow &window );
+    
+    void draw ( sf::RenderWindow &window );
 
+};
 
 
 
