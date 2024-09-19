@@ -6,164 +6,170 @@
 #include <SFML/System.hpp>
 #include <memory>
 #include <string>
+#include "Enemy.hpp"
+#include "Player.hpp"
+#include "Points.hpp"
+#include "createGame.hpp"
 
-class Player{
-public:
-    sf::RectangleShape playerShape;
-    sf::Vector2<float> playerPosition;
-    float speed;
-    
-public:
-    Player(){
-        playerPosition = sf::Vector2f(300,300);
-        speed = 5.0f;
-        playerShape.setPosition (playerPosition);
-        playerShape.setSize(sf::Vector2<float>(50,50));
-        playerShape.setFillColor(sf::Color::Transparent);
-        playerShape.setOutlineColor(sf::Color::Green);
-        playerShape.setOutlineThickness(5);
-    }
-    void draw ( sf::RenderWindow &window ){
-        window.draw(playerShape);
-    }
-};
-//points
-class Points{
-public:
-    sf::RectangleShape pointsShape;
-    sf::Vector2<float> pointsPosition;
-    sf::Vector2<float> pointsDestination;
-    sf::Vector2<float> intermediatePosition;
-    float speed;
-    bool moving;
-    bool collision;
-    float collisionDestationX;
-    float collisionDestationY;
-    
-public:
-    Points(int x, int y){
-        pointsPosition = sf::Vector2f(x, y);
-        speed = .0002f;
-        pointsShape.setPosition (pointsPosition);
-        pointsShape.setSize(sf::Vector2<float>(10,10));
-        pointsShape.setFillColor(sf::Color::Yellow);
-        collisionDestationX=1100;
-        collisionDestationY =500;
-    }
-    
-    void moveOutOfTheScreen () {
-        if (!moving){
-            pointsDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
-            moving = true;
-        }
-        if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
-            intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
-            intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
-            pointsShape.setPosition(intermediatePosition);
-            pointsPosition = intermediatePosition;
-        } else {
-            moving = false;
-        }
-    }
-    
-    void move(int x, int y){
-        if(!collision){
-            if (!moving){
-                pointsDestination = sf::Vector2f(x, y);
-                moving = true;
-            }
-            if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
-                intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
-                intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
-                pointsShape.setPosition(intermediatePosition);
-                pointsPosition = intermediatePosition;
-            } else {
-                moving = false;
-            }
-        } else {
-//            moveOutOfTheScreen();
-        }
-    }
-    
-    bool reachedDestination(float x, float y){
-        return (abs(pointsPosition.x - x) < 100 && abs(pointsPosition.y - y) < 100);
-    }
-    
-    void draw ( sf::RenderWindow &window ){
-        window.draw(pointsShape);
-    }
-};
+//#include
+
+//class Player{
+//public:
+//    sf::RectangleShape playerShape;
+//    sf::Vector2<float> playerPosition;
+//    float speed;
+//    
+//public:
+//    Player(){
+//        playerPosition = sf::Vector2f(300,300);
+//        speed = 5.0f;
+//        playerShape.setPosition (playerPosition);
+//        playerShape.setSize(sf::Vector2<float>(50,50));
+//        playerShape.setFillColor(sf::Color::Transparent);
+//        playerShape.setOutlineColor(sf::Color::Green);
+//        playerShape.setOutlineThickness(5);
+//    }
+//    void draw ( sf::RenderWindow &window ){
+//        window.draw(playerShape);
+//    }
+//};
+////points
+//class Points{
+//public:
+//    sf::RectangleShape pointsShape;
+//    sf::Vector2<float> pointsPosition;
+//    sf::Vector2<float> pointsDestination;
+//    sf::Vector2<float> intermediatePosition;
+//    float speed;
+//    bool moving;
+//    bool collision;
+//    float collisionDestationX;
+//    float collisionDestationY;
+//    
+//public:
+//    Points(int x, int y){
+//        pointsPosition = sf::Vector2f(x, y);
+//        speed = .0002f;
+//        pointsShape.setPosition (pointsPosition);
+//        pointsShape.setSize(sf::Vector2<float>(10,10));
+//        pointsShape.setFillColor(sf::Color::Yellow);
+//        collisionDestationX=1100;
+//        collisionDestationY =500;
+//    }
+//    
+//    void moveOutOfTheScreen () {
+//        if (!moving){
+//            pointsDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
+//            moving = true;
+//        }
+//        if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
+//            intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
+//            intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
+//            pointsShape.setPosition(intermediatePosition);
+//            pointsPosition = intermediatePosition;
+//        } else {
+//            moving = false;
+//        }
+//    }
+//    
+//    void move(int x, int y){
+//        if(!collision){
+//            if (!moving){
+//                pointsDestination = sf::Vector2f(x, y);
+//                moving = true;
+//            }
+//            if (!reachedDestination(pointsDestination.x, pointsDestination.y)){
+//                intermediatePosition.x = pointsPosition.x + (pointsDestination.x - pointsPosition.x) * speed;
+//                intermediatePosition.y = pointsPosition.y + (pointsDestination.y - pointsPosition.y) * speed;
+//                pointsShape.setPosition(intermediatePosition);
+//                pointsPosition = intermediatePosition;
+//            } else {
+//                moving = false;
+//            }
+//        } else {
+////            moveOutOfTheScreen();
+//        }
+//    }
+//    
+//    bool reachedDestination(float x, float y){
+//        return (abs(pointsPosition.x - x) < 100 && abs(pointsPosition.y - y) < 100);
+//    }
+//    
+//    void draw ( sf::RenderWindow &window ){
+//        window.draw(pointsShape);
+//    }
+//};
 //enemy
-class Enemy{
-public:
-    sf::CircleShape enemyShape;
-    sf::Vector2<float> enemyPosition;
-    sf::Vector2<float> enemyDestination;
-    sf::Vector2<float> intermediatePosition;
-    
-    
-    float speed;
-    bool moving;
-    bool collision;
-    int collisionDestationX;
-    int collisionDestationY;
-    
-public:
-    Enemy(int x, int y){
-        enemyPosition = sf::Vector2f(x, y);
-        speed = .0002f;
-        enemyShape.setPosition (enemyPosition);
-        enemyShape.setRadius(40);
-        enemyShape.setPointCount(3);
-        enemyShape.setFillColor(sf::Color::Red);
-        collisionDestationX = 500;
-        collisionDestationY = 500;
-    }
-    
-    
-    
-    void moveOutOfTheScreen () {
-        if (!moving){
-            enemyDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
-            moving = true;
-        }
-        if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
-            intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
-            intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
-            enemyShape.setPosition(intermediatePosition);
-            enemyPosition = intermediatePosition;
-        } else {
-            moving = false;
-        }
-    }
-    
-    void move(int x, int y){
-        if(!collision){
-            if (!moving){
-                enemyDestination = sf::Vector2f(x, y);
-                moving = true;
-            }
-            if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
-                intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
-                intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
-                enemyShape.setPosition(intermediatePosition);
-                enemyPosition = intermediatePosition;
-            } else {
-                moving = false;
-            }
-        }else{
-            moveOutOfTheScreen();
-        }
-    }
-    
-    bool reachedDestination(float x, float y){
-        return (abs(enemyPosition.x - x) < 100 && abs(enemyPosition.y - y) < 100);
-    }
-    
-    void draw ( sf::RenderWindow &window ){
-        window.draw(enemyShape);
-    }
-};
+//class Enemy{
+//public:
+//    sf::CircleShape enemyShape;
+//    sf::Vector2<float> enemyPosition;
+//    sf::Vector2<float> enemyDestination;
+//    sf::Vector2<float> intermediatePosition;
+//    
+//    
+//    float speed;
+//    bool moving;
+//    bool collision;
+//    int collisionDestationX;
+//    int collisionDestationY;
+//    
+//public:
+//    Enemy(int x, int y){
+//        enemyPosition = sf::Vector2f(x, y);
+//        speed = .0002f;
+//        enemyShape.setPosition (enemyPosition);
+//        enemyShape.setRadius(40);
+//        enemyShape.setPointCount(3);
+//        enemyShape.setFillColor(sf::Color::Red);
+//        collisionDestationX = 500;
+//        collisionDestationY = 500;
+//    }
+//    
+//    
+//    
+//    void moveOutOfTheScreen () {
+//        if (!moving){
+//            enemyDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
+//            moving = true;
+//        }
+//        if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
+//            intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
+//            intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
+//            enemyShape.setPosition(intermediatePosition);
+//            enemyPosition = intermediatePosition;
+//        } else {
+//            moving = false;
+//        }
+//    }
+//    
+//    void move(int x, int y){
+//        if(!collision){
+//            if (!moving){
+//                enemyDestination = sf::Vector2f(x, y);
+//                moving = true;
+//            }
+//            if (!reachedDestination(enemyDestination.x, enemyDestination.y)){
+//                intermediatePosition.x = enemyPosition.x + (enemyDestination.x - enemyPosition.x) * speed;
+//                intermediatePosition.y = enemyPosition.y + (enemyDestination.y - enemyPosition.y) * speed;
+//                enemyShape.setPosition(intermediatePosition);
+//                enemyPosition = intermediatePosition;
+//            } else {
+//                moving = false;
+//            }
+//        }else{
+//            moveOutOfTheScreen();
+//        }
+//    }
+//    
+//    bool reachedDestination(float x, float y){
+//        return (abs(enemyPosition.x - x) < 100 && abs(enemyPosition.y - y) < 100);
+//    }
+//    
+//    void draw ( sf::RenderWindow &window ){
+//        window.draw(enemyShape);
+//    }
+//};
 
 //sf::Clock clock;
 //sf::Time deltaTime = clock.restart();
