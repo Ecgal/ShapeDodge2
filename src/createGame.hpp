@@ -19,8 +19,6 @@
 #include <memory>
 #include <string>
 
-
-
 class Game {
 private:
     float windowHeight = 1000;
@@ -30,54 +28,19 @@ private:
     
 public:
     Game ():window(sf::VideoMode(windowHeight, windowWidth),"my first SFML game"), player1(windowHeight,windowWidth){
-         
         player1.setWindowDimessions(1000,1000);
-        //window (sf::VideoMode(windowHeight, windowWidth),"my first SFML game")
-       // window.
-       // sf::RenderWindow  (sf::VideoMode(windowHeight, windowWidth),"my first SFML game");
-        
-        
     }
     
     sf::RenderWindow& getWindow(){
-        
         return window;
     }
     
     Player& getPlayer() {
-        
         return player1;
     }
-    void run() {
-       // window (sf::VideoMode(windowHeight, windowWidth),"my first SFML game");
-        
-        
-    }
     
-    
-    
-    
-    
-    
+    void run(){}
     
 };
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
 
 #endif /* createGame_hpp */

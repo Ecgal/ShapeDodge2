@@ -14,10 +14,8 @@
 #include <memory>
 #include <string>
 
-
 class Player{
 private:
-    
     float speed;
     int _gameBoardHeight, _gameBoardWidth;
     
@@ -47,8 +45,6 @@ public:
             lifeShape.setFillColor(sf::Color::Magenta);
             lifeShape.setPosition(playerPosition.x + 50, playerPosition.y + i * 10);
             playerLives.push_back(lifeShape);
-            
-            
         }
     }
     
@@ -56,39 +52,32 @@ public:
         window.draw(playerShape);
         for (int i = 0; i < playerLives.size(); i++){
             window.draw(playerLives[i]);
-
         }
-       
     }
     
-
     void reduceLife (){
         if(lives == 4){
-            playerLives.pop_back();
+            std::cout << playerLives.size() << std::endl;
+            playerLives.erase(playerLives.begin());
         } if(lives == 3){
-            playerLives.pop_back();
+            playerLives.erase(playerLives.begin());
         } if(lives == 2){
-            playerLives.pop_back();
+            playerLives.erase(playerLives.begin());
         } if(lives == 1){
-            playerLives.pop_back();
+            playerLives.erase(playerLives.begin());
         }
-        
-        
     }
-    
-    
-    
     
     void move (sf::Event event){
         //Up Arrow Movement
         if (event.key.code == sf::Keyboard::Up){
             playerShape.move(0.f, -0.1);
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < playerLives.size(); i++){
                 playerLives[i].move(0.f, -0.1);
             }
             if (playerShape.getPosition().y < 0.f){
                 playerShape.move(0.f, 0.1);
-                for (int i = 0; i < 5; i++){
+                for (int i = 0; i < playerLives.size(); i++){
                     playerLives[i].move(0.f, 0.1);
                 }
             }
@@ -96,12 +85,12 @@ public:
         //Down Arrow Movement
         } else if (event.key.code == sf::Keyboard::Down){
             playerShape.move(0.f, 0.1);
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < playerLives.size(); i++){
                 playerLives[i].move(0.f, 0.1);
             }
-            if(playerShape.getPosition().y + (playerShape.getGlobalBounds().height * 2) > _gameBoardHeight){
+            if (playerShape.getPosition().y + (playerShape.getGlobalBounds().height * 2) > _gameBoardHeight){
                 playerShape.move(0.f, -0.1);
-                for (int i = 0; i < 5; i++){
+                for (int i = 0; i < playerLives.size(); i++){
                     playerLives[i].move(0.f, -0.1);
                 }
             }
@@ -109,12 +98,12 @@ public:
         //Left Arrow Movement
         } else if (event.key.code == sf::Keyboard::Left){
             playerShape.move(-0.1, 0.f);
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < playerLives.size(); i++){
                 playerLives[i].move(-0.1, 0.f);
             }
-            if(playerShape.getPosition().x < 0.f){
+            if (playerShape.getPosition().x < 0.f){
                 playerShape.move(0.1, 0.0f);
-                for (int i = 0; i < 5; i++){
+                for (int i = 0; i < playerLives.size(); i++){
                     playerLives[i].move(0.1, 0.0f);
                 }
             }
@@ -122,20 +111,19 @@ public:
         //Right Arrow Movement
         } else if (event.key.code == sf::Keyboard::Right){
             playerShape.move(0.1, 0.0f);
-            for (int i = 0; i < 5; i++){
+            for (int i = 0; i < playerLives.size(); i++){
                 playerLives[i].move(0.1, 0.0f);
             }
-            if(playerShape.getPosition().x + playerShape.getGlobalBounds().width > _gameBoardWidth){
+            if (playerShape.getPosition().x + playerShape.getGlobalBounds().width > _gameBoardWidth){
                 playerShape.move(-0.1, 0.0f);
-                for (int i = 0; i < 5; i++){
+                for (int i = 0; i < playerLives.size(); i++){
                     playerLives[i].move(-0.1, 0.0f);
                 }
             }
         }
     }
-  
+    
     void setWindowDimessions( int width, int height){
-        
         _gameBoardHeight= height;
         _gameBoardWidth= width;
     }

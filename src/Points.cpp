@@ -7,7 +7,7 @@
 
 #include "Points.hpp"
 
-void Points::moveOutOfTheScreen () {
+void Points::moveOutOfTheScreen(){
     if (!moving){
         pointsDestination = sf::Vector2f(collisionDestationX, collisionDestationY);
         moving = true;
@@ -21,7 +21,6 @@ void Points::moveOutOfTheScreen () {
         moving = false;
     }
 }
-
 
 void Points::move(int x, int y){
     if(!collision){
@@ -37,20 +36,15 @@ void Points::move(int x, int y){
         } else {
             moving = false;
         }
-    } else {
-//            moveOutOfTheScreen();
     }
 }
-
 
 bool Points::reachedDestination(float x, float y){
     return (abs(pointsPosition.x - x) < 100 && abs(pointsPosition.y - y) < 100);
 }
 
-
-void Points::pointsCreator( std::vector<Points>& pointsVec){
+void Points::pointsCreator(std::vector<Points>& pointsVec){
     for (int i = 0; i < 3; i++){
-        
         int randomXCoordinate = rand() % 1000;
         int randomYCoordinate = rand() % 1000;
         Points points (randomXCoordinate, randomYCoordinate);
@@ -59,59 +53,41 @@ void Points::pointsCreator( std::vector<Points>& pointsVec){
     }
 }
 
-
-void Points::moveDirection(std::vector<Points>& pointsVec) {
+void Points::moveDirection(std::vector<Points>& pointsVec){
     for (Points& t: pointsVec){
         int randomX = rand() % 1000;
-       int randomY = rand() % 1000;
+        int randomY = rand() % 1000;
         t.move(randomX, randomY);
     }
 }
 
-
 void Points::erasePoint(std::vector<Points>& pointsVec, int pointToErase){
-    if( pointToErase >= 0 && pointToErase <pointsVec.size()){
+    if (pointToErase >= 0 && pointToErase < pointsVec.size()){
         pointsVec.erase(pointsVec.begin() + pointToErase);
-        
-        
     }
 }
 
-
-void Points::collisionAction (std::vector<Points>& pointsVec, Player& player1){
-    for (int i = 0; i < pointsVec.size(); ++i) {
-        if(pointsVec[i].pointsShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())) {
-           
+void Points::collisionAction(std::vector<Points>& pointsVec, Player& player1){
+    for (int i = 0; i < pointsVec.size(); ++i){
+        if (pointsVec[i].pointsShape.getGlobalBounds().intersects(player1.playerShape.getGlobalBounds())){
             pointsVec[i].erasePoint(pointsVec, i);
-            
             player1.score++;
-            
             int randomXCoordinate = rand() % 1000;
             int randomYCoordinate = rand() % 1000;
-            
             Points newPoint(randomXCoordinate, randomYCoordinate);
             pointsVec.push_back(newPoint);
-            
-            std::cout<<"Player score: "<<player1.score<<std::endl;
+            std::cout << "Player score: " << player1.score << std::endl;
         }
     }
 }
 
-void Points::drawPoints (std::vector<Points>& pointsVec,  sf::RenderWindow &window ){
+void Points::drawPoints(std::vector<Points>& pointsVec, sf::RenderWindow &window){
     for (Points t: pointsVec){
         t.draw(window);
-        //            t.move(rand() % 1000, rand() % 1000);
     }
 }
 
-void Points::draw ( sf::RenderWindow &window ){
+void Points::draw(sf::RenderWindow &window){
     window.draw(pointsShape);
 }
-
-
-
-
-
-
-
 

@@ -27,14 +27,12 @@ public:
     sf::Vector2<float> enemyDestination;
     sf::Vector2<float> intermediatePosition;
     
-    
     float speed;
     bool moving;
     bool collision;
     int collisionDestationX;
     int collisionDestationY;
     
-public:
     Enemy(int x, int y){
         enemyPosition = sf::Vector2f(x, y);
         enemyDestination = sf::Vector2f(x, y);

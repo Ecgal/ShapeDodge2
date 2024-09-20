@@ -21,7 +21,6 @@
 #include "Points.hpp"
 #include "CreateGame.hpp"
 
-//points
 class Points{
 public:
     sf::RectangleShape pointsShape;
@@ -34,7 +33,6 @@ public:
     float collisionDestationX;
     float collisionDestationY;
     
-public:
     Points(int x, int y){
         pointsPosition = sf::Vector2f(x, y);
         speed = .0002f;
@@ -64,11 +62,5 @@ public:
     void draw ( sf::RenderWindow &window );
 
 };
-
-
-
-
-
-
 
 #endif /* Points_hpp */
